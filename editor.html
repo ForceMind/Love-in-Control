@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>剧情编辑器 | Love in Control</title>
+    <link rel="stylesheet" href="editor.css">
+</head>
+<body>
+    <div id="editor-app">
+        <!-- 侧边栏：场景列表 -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>场景列表</h2>
+                <input type="text" id="search-input" placeholder="搜索场景ID或内容...">
+                <button id="btn-new-scene" class="btn primary">+ 新建场景</button>
+            </div>
+            <ul id="scene-list">
+                <!-- 场景列表项由 JS 生成 -->
+            </ul>
+        </aside>
+
+        <!-- 主区域：编辑表单 -->
+        <main class="editor-main">
+            <div class="toolbar">
+                <span id="current-file-hint">正在编辑: <span id="scene-id-display">未选择</span></span>
+                <div class="actions">
+                    <button id="btn-copy-json" class="btn">复制 JSON</button>
+                    <button id="btn-save-local" class="btn primary">暂存修改</button>
+                </div>
+            </div>
+
+            <form id="scene-form" class="hidden">
+                <div class="form-group">
+                    <label>场景 ID (Scene ID)</label>
+                    <input type="text" id="field-id" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group half">
+                        <label>地点 (Location)</label>
+                        <input type="text" id="field-location">
+                    </div>
+                    <div class="form-group half">
+                        <label>说话人 (Speaker)</label>
+                        <input type="text" id="field-speaker">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>剧情文本 (Text)</label>
+                    <textarea id="field-text" rows="6"></textarea>
+                </div>
+
+                <div class="choices-section">
+                    <h3>选项 (Choices) <button type="button" id="btn-add-choice" class="btn small">+ 添加选项</button></h3>
+                    <div id="choices-container">
+                        <!-- 选项编辑器由 JS 生成 -->
+                    </div>
+                </div>
+            </form>
+
+            <div id="empty-state">
+                <p>请在左侧选择一个场景或新建场景</p>
+            </div>
+        </main>
+    </div>
+
+    <!-- 引入数据文件 (与游戏保持一致) -->
+    <script src="data/common.js"></script>
+    <script src="data/characters.js"></script>
+    <script src="data/jiang_feng.js"></script>
+    <script src="data/chen_mo.js"></script>
+    <script src="data/li_ze.js"></script>
+    <script src="data/wang_meng.js"></script>
+    
+    <!-- 编辑器逻辑 -->
+    <script src="editor.js"></script>
+</body>
+</html>
