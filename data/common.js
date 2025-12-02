@@ -2,6 +2,15 @@ window.storyData = window.storyData || {};
 window.storyData.heroines = window.storyData.heroines || {};
 window.storyData.scenes = window.storyData.scenes || {};
 
+// Helper to get char prefix
+window.getCharPrefix = function(charId) {
+    if (charId === 'jiang_feng') return 'jf_';
+    if (charId === 'li_ze') return 'lz_';
+    if (charId === 'wang_meng') return 'wm_';
+    if (charId === 'chen_mo') return 'cm_';
+    return '';
+};
+
 Object.assign(window.storyData.scenes, {
     "root_menu": {
         id: "root_menu",

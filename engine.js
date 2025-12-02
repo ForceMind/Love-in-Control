@@ -5,12 +5,13 @@ const gameState = {
     attractionScore: 0,
     currentSceneId: null,
     history: [],
+    visitedScenes: new Set(), // Track visited scenes for Story Map
     harem: {} // { heroineId: { status: 'met', attraction: 0 } }
 };
 
 // UI Controller
 window.ui = {
-    screens: ['menu', 'game', 'profile', 'harem', 'system'],
+    screens: ['menu', 'game', 'profile', 'harem', 'system', 'story-map'],
     
     toggleMenu: () => {
         const nav = document.getElementById('nav-menu');
@@ -52,30 +53,87 @@ window.ui = {
         // Refresh content if needed
         if (screenName === 'profile') ui.renderProfile();
         if (screenName === 'harem') ui.renderHarem();
+        if (screenName === 'story-map') ui.renderStoryMap();
     },
 
-    renderProfile: () => {
-        const grid = document.getElementById('character-select-grid');
-        grid.innerHTML = '';
-        Object.values(storyData.characters).forEach(char => {
-            const card = document.createElement('div');
-            card.className = 'card';
-            card.innerHTML = `<h3>${char.name}</h3><p>${char.title}</p>`;
-            card.onclick = () => {
-                ui.selectCharacter(char);
-            };
-            grid.appendChild(card);
-        });
+    showStoryMap: () => {
+        ui.showScreen('story-map');
     },
 
-    selectCharacter: (char) => {
-        const infoDiv = document.getElementById('current-character-info');
-        infoDiv.classList.remove('hidden');
-        document.getElementById('char-name').innerText = char.name;
-        document.getElementById('char-bio').innerText = char.bio;
+    renderStoryMap: () => {
+        const container = document.getElementById('story-map-container');
+        container.innerHTML = '';
+
+        if (!gameState.characterId) {
+            container.innerHTML = '<p style="color:var(--text-dim); text-align:center;">请先开始游戏选择角色。</p>';
+            return;
+        }
+
+        // Group scenes by "Chapter" (inferred from ID prefix)
+        // Example ID: jf_1_ignore -> Chapter 1
+        const scenes = Object.values(storyData.scenes).filter(s => s.id.startsWith(getCharPrefix(gameState.characterId)));
         
-        // Store selected char temporarily or start immediately
-        gameState.tempCharId = char.id;
+        const chapters = {};
+        scenes.forEach(scene => {
+            let chapterName = "其他";
+            if (scene.id.includes('intro')) chapterName = "序章";
+            else if (scene.id.includes('_1_')) chapterName = "第一章";
+            else if (scene.id.includes('_2_')) chapterName = "第二章";
+            else if (scene.id.includes('_3_')) chapterName = "第三章";
+            else if (scene.id.includes('_4_')) chapterName = "第四章";
+            else if (scene.id.includes('_5_')) chapterName = "终章";
+            else if (scene.id.includes('end')) chapterName = "结局";
+            
+            if (!chapters[chapterName]) chapters[chapterName] = [];
+            chapters[chapterName].push(scene);
+        });
+
+        // Render Chapters
+        const order = ["序章", "第一章", "第二章", "第三章", "第四章", "终章", "结局", "其他"];
+        
+        order.forEach(chapName => {
+            if (chapters[chapName]) {
+                const chapDiv = document.createElement('div');
+                chapDiv.className = 'story-chapter';
+                
+                const title = document.createElement('div');
+                title.className = 'chapter-title';
+                title.innerText = chapName;
+                chapDiv.appendChild(title);
+
+                const nodesDiv = document.createElement('div');
+                nodesDiv.className = 'scene-nodes';
+
+                chapters[chapName].forEach(scene => {
+                    const btn = document.createElement('button');
+                    btn.className = 'scene-node';
+                    // Check if visited
+                    const isVisited = gameState.visitedScenes.has(scene.id);
+                    const isCurrent = gameState.currentSceneId === scene.id;
+                    
+                    if (isVisited) btn.classList.add('unlocked');
+                    if (isCurrent) btn.classList.add('current');
+
+                    // Shorten text for button label
+                    let label = scene.id.split('_').pop(); // e.g. "ignore" from "jf_1_ignore"
+                    // Map some common suffixes to Chinese if possible, or just use ID
+                    btn.innerText = label;
+                    btn.title = scene.text.substring(0, 50) + "..."; // Tooltip preview
+
+                    if (isVisited) {
+                        btn.onclick = () => {
+                            game.loadScene(scene.id);
+                            ui.showScreen('game');
+                        };
+                    }
+
+                    nodesDiv.appendChild(btn);
+                });
+
+                chapDiv.appendChild(nodesDiv);
+                container.appendChild(chapDiv);
+            }
+        });
     },
 
     renderHarem: () => {
@@ -215,6 +273,7 @@ window.game = {
         }
 
         gameState.currentSceneId = sceneId;
+        gameState.visitedScenes.add(sceneId); // Mark as visited
 
         // Update UI
         document.getElementById('location-tag').innerText = `LOCATION: ${scene.location || 'UNKNOWN'}`;
@@ -288,7 +347,11 @@ window.game = {
 // Save System
 window.saveSystem = {
     saveGame: () => {
-        localStorage.setItem('lic_save_data', JSON.stringify(gameState));
+        // Convert Set to Array for JSON serialization
+        const stateToSave = { ...gameState };
+        stateToSave.visitedScenes = Array.from(gameState.visitedScenes);
+        
+        localStorage.setItem('lic_save_data', JSON.stringify(stateToSave));
         ui.showToast("系统", "保存成功！", "gain");
     },
     
@@ -296,6 +359,14 @@ window.saveSystem = {
         const data = localStorage.getItem('lic_save_data');
         if (data) {
             const loadedState = JSON.parse(data);
+            
+            // Convert Array back to Set
+            if (loadedState.visitedScenes) {
+                loadedState.visitedScenes = new Set(loadedState.visitedScenes);
+            } else {
+                loadedState.visitedScenes = new Set();
+            }
+            
             Object.assign(gameState, loadedState);
             
             if (gameState.currentSceneId) {

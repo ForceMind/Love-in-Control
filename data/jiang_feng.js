@@ -2,843 +2,565 @@ window.storyData = window.storyData || {};
 window.storyData.heroines = window.storyData.heroines || {};
 window.storyData.scenes = window.storyData.scenes || {};
 
+// ============================================================
+// 角色定义：江枫线 (贫困生逆袭)
+// ============================================================
 Object.assign(window.storyData.heroines, {
-    "lin_wan": { name: "林婉", title: "冰山女高管", bio: "32岁，习惯掌控一切。需要比她更强势的男人来征服。" },
-    "su_xiaoxiao": { name: "苏小小", title: "绿茶校花", bio: "20岁，擅长利用男人。江枫是唯一看穿她把戏的人。" },
-    "teacher_li": { name: "李雅", title: "知性辅导员", bio: "28岁，渴望被理解的孤独灵魂。" },
-    "rich_girl_amy": { name: "Amy", title: "刁蛮富家女", bio: "19岁，想要什么就能得到什么，除了江枫的真心。" },
-    "boss_chen": { name: "陈姐", title: "酒吧老板娘", bio: "35岁，风韵犹存，阅人无数。" }
+    "su_xiaoxiao": { 
+        name: "苏小小", 
+        title: "绿茶校花", 
+        bio: "20岁，艺术系女神。习惯了男人的讨好，却对唯一无视她的江枫产生了扭曲的征服欲。" 
+    },
+    "lin_waner": { 
+        name: "林婉儿", 
+        title: "财阀千金", 
+        bio: "19岁，学生会主席，校董的女儿。高傲冷艳，认为金钱可以衡量一切价值，直到遇见无法被收买的江枫。" 
+    },
+    "teacher_li": { 
+        name: "李雅", 
+        title: "知性辅导员", 
+        bio: "28岁，江枫的辅导员。外表严厉古板，内心却渴望被强势的力量打破生活的平静。" 
+    }
 });
 
+// ============================================================
+// 场景定义
+// ============================================================
 Object.assign(window.storyData.scenes, {
-    // ==========================================
-    // 江枫线 (Jiang Feng) - 逻辑与贫穷的博弈
-    // 第一阶段：苏小小（绿茶校花）的试探
-    // ==========================================
+    // ============================================================
+    // 序章：图书馆的博弈
+    // ============================================================
     "intro_jiang_feng": {
         id: "intro_jiang_feng",
-        text: "大学图书馆。你（江枫）正盯着屏幕上的代码，旁边传来一阵骚动。是苏小小，那个传说中的‘绿茶校花’。她穿着短裙，正蹲在地上捡书，周围几个男生像苍蝇一样围了上去。她似乎注意到了唯一没有看她的你。",
-        location: "图书馆",
+        text: "午后的大学图书馆，空气中弥漫着陈旧纸张和廉价香水的混合味道。阳光透过落地窗洒在你的旧笔记本电脑上，屏幕上密密麻麻的代码是你唯一的信仰。\n\n你是江枫，一个连学费都要靠奖学金和外包代码凑齐的贫困生。在这个看脸和看钱的校园里，你本该是透明人。但今天，平静被打破了。\n\n一阵骚动从门口传来。苏小小，那个被称为“纯欲天花板”的艺术系校花，穿着一件设计感十足的露肩毛衣和短裙，在一群男生的簇拥下走了进来。她四处张望了一下，目光穿过人群，竟然直直地落在了你——这个角落里唯一没有抬头看她的人身上。\n\n她径直走到你对面，拉开椅子坐下，一股甜腻的桃子味香水瞬间包围了你。她故意把书摔在桌上，发出“啪”的一声，然后托着下巴，眨着那双无辜的大眼睛看着你。",
+        location: "图书馆角落",
         speaker: "旁白",
         choices: [
-            { text: "（专注）完全无视，继续写代码，仿佛她是空气。", type: "alpha", nextScene: "jf_scene_1_ignore", effect: { frame: 5, attraction: 0 } },
-            { text: "（嘲讽）冷笑一声，低声说：“拙劣的演技。”", type: "alpha", nextScene: "jf_scene_1_mock", effect: { frame: 10, attraction: 5 } },
-            { text: "（随大流）看一眼，心想确实挺漂亮的。", type: "beta", nextScene: "jf_scene_1_look", effect: { frame: -5, attraction: 0 } }
-        ]
-    },
-    "jf_scene_1_ignore": {
-        id: "jf_scene_1_ignore",
-        text: "你的无视似乎激起了她的好胜心。她打发走了那些男生，径直走到你对面坐下，托着下巴看着你：“同学，你键盘敲得好响哦，吵到我学习了。”",
-        location: "图书馆",
-        speaker: "苏小小",
-        choices: [
-            { text: "“嫌吵可以去顶楼，那里没人。”（头也不抬）", type: "alpha", nextScene: "jf_scene_2_conflict", feedback: "设立边界，不接受她的指责。", effect: { frame: 5, attraction: 5 }, unlockHeroine: "su_xiaoxiao" },
-            { text: "“不好意思，我轻一点。”（立刻道歉）", type: "beta", nextScene: "jf_scene_gameover_beta", feedback: "你道歉了，框架崩塌。", effect: { frame: -10, attraction: -10 } },
-            { text: "停下动作，直视她：“你根本没在学习，你在看我。”", type: "alpha", nextScene: "jf_scene_2_flirt", feedback: "反客为主，戳穿她的意图。", effect: { frame: 10, attraction: 10 }, unlockHeroine: "su_xiaoxiao" }
-        ]
-    },
-    "jf_scene_1_mock": {
-        id: "jf_scene_1_mock",
-        text: "苏小小听到了你的话，脸色变了变。她走到你面前，居高临下地看着你：“你刚才说什么？谁在演戏？”",
-        location: "图书馆",
-        speaker: "苏小小",
-        choices: [
-            { text: "“谁捡书的时候会特意把裙摆拉高三厘米？物理学上解释不通。”", type: "alpha", nextScene: "jf_scene_2_logic", feedback: "用绝对的逻辑击碎她的伪装。", effect: { frame: 15, attraction: 15 }, unlockHeroine: "su_xiaoxiao" },
-            { text: "“没...没什么。”（怂了）", type: "beta", nextScene: "jf_scene_gameover_beta", feedback: "敢做不敢当，最令人下头。", effect: { frame: -20, attraction: -20 } }
-        ]
-    },
-    "jf_scene_2_conflict": {
-        id: "jf_scene_2_conflict",
-        text: "苏小小气鼓鼓地看着你，但没有离开。她突然把手机推到你面前：“既然你这么拽，帮我看看这个程序怎么跑不通？听说你是计算机系的。”",
-        location: "图书馆",
-        speaker: "苏小小",
-        choices: [
-            { text: "“我很贵。一小时500，先付后教。”", type: "alpha", nextScene: "jf_scene_3_deal", feedback: "展示高价值，不提供免费午餐。", effect: { frame: 10, attraction: 5 } },
-            { text: "“拿来我看看吧。”（免费帮忙）", type: "beta", nextScene: "jf_scene_friendzone", feedback: "你成为了供养者（技术支持）。", effect: { frame: -5, attraction: -5 } },
-            { text: "“这种低级错误，自己去查文档。”（拒绝）", type: "alpha", nextScene: "jf_scene_3_reject", feedback: "保持高姿态。", effect: { frame: 5, attraction: 10 } }
-        ]
-    },
-    "jf_scene_2_flirt": {
-        id: "jf_scene_2_flirt",
-        text: "苏小小脸红了一下，随即露出了狡黠的笑容：“自恋狂。不过...你确实比那些只会流口水的傻瓜顺眼一点。加个微信？”",
-        location: "图书馆",
-        speaker: "苏小小",
-        choices: [
-            { text: "拿出手机二维码：“扫吧。但我回消息很慢。”", type: "alpha", nextScene: "jf_scene_3_wechat", feedback: "同意但降低预期，保持框架。", effect: { frame: 5, attraction: 5 } },
-            { text: "“我不加陌生人。除非你告诉我你真实的目的是什么。”", type: "alpha", nextScene: "jf_scene_3_deep", feedback: "深层挖掘，建立更深联系。", effect: { frame: 10, attraction: 10 } },
-            { text: "“好啊好啊！”（激动掏手机）", type: "beta", nextScene: "jf_scene_friendzone", feedback: "暴露需求感。", effect: { frame: -10, attraction: -5 } }
-        ]
-    },
-    "jf_scene_2_logic": {
-        id: "jf_scene_2_logic",
-        text: "苏小小被你的逻辑震惊了，她第一次遇到不按套路出牌的男生。她咬着嘴唇：“你这人真无趣。不过，我正好有个逻辑题解不开，你敢不敢挑战？”",
-        location: "图书馆",
-        speaker: "苏小小",
-        choices: [
-            { text: "“激将法对我没用。不过如果是难题，我有点兴趣。”", type: "alpha", nextScene: "jf_scene_3_deal", feedback: "接受挑战，但保持框架。", effect: { frame: 5, attraction: 5 } },
-            { text: "“没空。”（继续看书）", type: "alpha", nextScene: "jf_scene_3_reject", feedback: "彻底的高冷。", effect: { frame: 10, attraction: 5 } }
-        ]
-    },
-    "jf_scene_3_deal": {
-        id: "jf_scene_3_deal",
-        text: "苏小小愣住了，显然没见过跟她谈钱的男生。她咬咬牙，转给你500块：“行，本小姐有的是钱。但你要是教不会，我就赖上你了。”",
-        location: "图书馆",
-        speaker: "苏小小",
-        choices: [
-            { text: "收钱，开始专业教学，全程无视她的肢体接触。", type: "alpha", nextScene: "jf_scene_4_teaching", feedback: "专业性也是一种性感。", effect: { frame: 10, attraction: 10 } }
-        ]
-    },
-    "jf_scene_3_reject": {
-        id: "jf_scene_3_reject",
-        text: "苏小小气得腮帮子鼓鼓的：“你这人怎么这样！一点绅士风度都没有。” 她虽然嘴上抱怨，但还是乖乖打开了浏览器开始查文档。她不习惯被拒绝，这反而让她对你产生了好奇。",
-        location: "图书馆",
-        speaker: "苏小小",
-        choices: [
-            { text: "“第42页，第三行。你的参数传错了。”（不看屏幕直接指出）", type: "alpha", nextScene: "jf_scene_4_library_moment", feedback: "智商碾压，展示绝对实力。", effect: { frame: 15, attraction: 15 } },
-            { text: "收拾东西准备离开：“加油吧，学妹。”", type: "neutral", nextScene: "jf_scene_4_leave", feedback: "保持神秘感离开。", effect: { frame: 5, attraction: 5 } }
-        ]
-    },
-    "jf_scene_3_wechat": {
-        id: "jf_scene_3_wechat",
-        text: "你加上了她的微信。她的朋友圈全是精修的自拍和下午茶，典型的“展示面”。晚上十点，她发来一条消息：“代码还是跑不通，救命啊大神~ 😭”",
-        location: "手机微信",
-        speaker: "苏小小",
-        choices: [
-            { text: "（放置）直接睡觉，第二天早上再回。", type: "alpha", nextScene: "jf_scene_4_late_reply", feedback: "不随叫随到，建立奖赏机制。", effect: { frame: 10, attraction: 10 } },
-            { text: "“哪里不会？发截图。”（秒回）", type: "beta", nextScene: "jf_scene_friendzone", feedback: "暴露需求感，沦为工具人。", effect: { frame: -5, attraction: -5 } }
-        ]
-    },
-    "jf_scene_3_deep": {
-        id: "jf_scene_3_deep",
-        text: "苏小小收起了笑容，眼神中闪过一丝慌乱，但很快掩饰过去：“哎呀，能有什么目的，就是想找个学霸带带我嘛。期末挂科会被老爸骂死的。”",
-        location: "图书馆",
-        speaker: "苏小小",
-        choices: [
-            { text: "盯着她的眼睛：“你在撒谎。你上学期绩点3.8，根本不需要人带。”", type: "alpha", nextScene: "jf_scene_4_exposed", feedback: "情报收集能力满分，直接揭穿。", effect: { frame: 20, attraction: 20 } },
-            { text: "“行吧，信你一次。”", type: "neutral", nextScene: "jf_scene_3_wechat", feedback: "暂且放过，进入微信阶段。", effect: { frame: 0, attraction: 0 } }
-        ]
-    },
-    
-    // --- 第四阶段剧情 ---
-    "jf_scene_4_teaching": {
-        id: "jf_scene_4_teaching",
-        text: "接下来的一个小时，你用最精炼的语言讲完了课程重点。苏小小几次试图把手搭在你肩膀上，或者凑得很近闻你身上的味道，你都像没看见一样继续讲课。结束后，她看着你的眼神变了。",
-        location: "图书馆",
-        speaker: "苏小小",
-        choices: [
-            { text: "合上书：“时间到。下次请早。”", type: "alpha", nextScene: "jf_scene_5_canteen", feedback: "严格遵守契约，不拖泥带水。", effect: { frame: 10, attraction: 15 } }
-        ]
-    },
-    "jf_scene_4_library_moment": {
-        id: "jf_scene_4_library_moment",
-        text: "苏小小照你说的改了，程序果然跑通了。她惊讶地看着你：“你脑子里装的是编译器吗？喂，你叫什么名字？”",
-        location: "图书馆",
-        speaker: "苏小小",
-        choices: [
-            { text: "“江枫。”（说完起身离开）", type: "alpha", nextScene: "jf_scene_5_rumor", feedback: "留下名字和背影。", effect: { frame: 5, attraction: 10 } }
-        ]
-    },
-    "jf_scene_4_leave": {
-        id: "jf_scene_4_leave",
-        text: "你走出了图书馆，外面的空气很清新。你听到身后传来急促的脚步声，苏小小追了出来：“喂！那个...谢谢你刚才的提醒。”",
-        location: "图书馆外",
-        speaker: "苏小小",
-        choices: [
-            { text: "停下脚步，侧过身：“不客气。还有事吗？”", type: "alpha", nextScene: "jf_scene_5_invitation", feedback: "保持距离，等待对方投入。", effect: { frame: 5, attraction: 10 } }
-        ]
-    },
-    "jf_scene_4_late_reply": {
-        id: "jf_scene_4_late_reply",
-        text: "第二天早上七点，你回了一条：“昨晚睡了。截图发来看看。” 苏小小几乎是秒回：“你终于理我了！我都急死了！”",
-        location: "手机微信",
-        speaker: "苏小小",
-        choices: [
-            { text: "“急也没用。先去吃早饭，半小时后图书馆见。”", type: "alpha", nextScene: "jf_scene_5_date_setup", feedback: "主导约会时间和地点。", effect: { frame: 10, attraction: 15 } }
-        ]
-    },
-    "jf_scene_4_exposed": {
-        id: "jf_scene_4_exposed",
-        text: "苏小小彻底愣住了，她收起了所有的伪装，冷冷地看着你，语气变得成熟而危险：“你调查我？看来你比我想象的更有趣...江枫同学。”",
-        location: "图书馆",
-        speaker: "苏小小",
-        choices: [
-            { text: "“彼此彼此。猎人总是要了解猎物的。”", type: "alpha", nextScene: "jf_scene_5_alliance", feedback: "承认博弈关系，确立对手感。", effect: { frame: 15, attraction: 25 } }
+            { 
+                text: "（专注）完全无视，手指在键盘上飞舞，仿佛她是空气。", 
+                type: "alpha", 
+                nextScene: "jf_1_ignore", 
+                effect: { frame: 10, attraction: 0 } 
+            },
+            { 
+                text: "（嘲讽）停下动作，冷冷地瞥她一眼：“同学，你挡住我的光了。”", 
+                type: "alpha", 
+                nextScene: "jf_1_mock", 
+                effect: { frame: 15, attraction: 5 } 
+            },
+            { 
+                text: "（礼貌）抬头看她一眼，点点头，然后继续工作。", 
+                type: "beta", 
+                nextScene: "jf_1_polite", 
+                effect: { frame: 0, attraction: 0 } 
+            }
         ]
     },
 
-    // --- 第五阶段剧情 (扩展) ---
-    "jf_scene_5_canteen": {
-        id: "jf_scene_5_canteen",
-        text: "你正准备去食堂吃饭，苏小小突然拉住你的衣袖：“喂，既然你教了我，本小姐请你吃饭吧。别去食堂了，去校门口的西餐厅。”",
-        location: "校园路上",
-        speaker: "苏小小",
-        choices: [
-            { text: "“我只吃食堂。你要跟来就跟，不来拉倒。”", type: "alpha", nextScene: "jf_scene_6_canteen_date", feedback: "坚持自己的生活方式，不被对方节奏带走。", effect: { frame: 10, attraction: 10 } },
-            { text: "“既然你请客，那就恭敬不如从命。”", type: "beta", nextScene: "jf_scene_6_restaurant_trap", feedback: "接受馈赠，地位下降。", effect: { frame: -5, attraction: -5 } }
-        ]
-    },
-    "jf_scene_5_rumor": {
-        id: "jf_scene_5_rumor",
-        text: "第二天，关于“高冷学霸无视校花”的传闻在校园论坛上传开了。你在去上课的路上，发现不少人在对你指指点点。苏小小突然出现在你面前，手里拿着两杯奶茶。",
-        location: "教学楼",
-        speaker: "苏小小",
-        choices: [
-            { text: "无视周围的目光，接过奶茶：“谢了。多少钱？”", type: "alpha", nextScene: "jf_scene_6_public_interaction", feedback: "坦然接受，但保持交易属性。", effect: { frame: 5, attraction: 5 } },
-            { text: "“别这样，大家都在看...”", type: "beta", nextScene: "jf_scene_gameover_beta", feedback: "在意他人眼光，框架脆弱。", effect: { frame: -10, attraction: -10 } }
-        ]
-    },
-    "jf_scene_5_invitation": {
-        id: "jf_scene_5_invitation",
-        text: "苏小小有些扭捏：“那个...这周末有个编程比赛，缺个队友。你...有没有兴趣？”",
-        location: "图书馆外",
-        speaker: "苏小小",
-        choices: [
-            { text: "“奖金多少？分配比例怎么算？”", type: "alpha", nextScene: "jf_scene_6_competition", feedback: "在商言商，不谈感情。", effect: { frame: 10, attraction: 5 } },
-            { text: "“好啊，能帮到你就行。”", type: "beta", nextScene: "jf_scene_friendzone", feedback: "无条件付出。", effect: { frame: -5, attraction: -5 } }
-        ]
-    },
-    "jf_scene_5_date_setup": {
-        id: "jf_scene_5_date_setup",
-        text: "苏小小准时出现在图书馆，手里还提着一份豪华早餐。她把早餐推给你：“给你的，算是赔罪。”",
+    // 分支 1：无视
+    "jf_1_ignore": {
+        id: "jf_1_ignore",
+        text: "你的无视显然超出了苏小小的认知范围。在她的世界里，只要她出现，男人就该像哈巴狗一样围上来。她咬了咬嘴唇，不甘心地伸出修长的手指，轻轻敲了敲你的键盘空格键，强行打断了你的代码。\n\n“喂，你是木头人吗？本小姐坐在这里五分钟了，你连看都不看一眼？”她娇嗔道，声音大得足以让周围的男生对你投来嫉妒和愤怒的目光，“我电脑坏了，听说你是计算机系的第一名，帮我修修嘛。”\n\n她说着，身体前倾，领口若隐若现，试图用她最擅长的武器攻破你的防线。",
         location: "图书馆",
         speaker: "苏小小",
         choices: [
-            { text: "“我不吃甜的。你自己吃吧。”", type: "alpha", nextScene: "jf_scene_6_rejection_test", feedback: "废物测试：拒绝不合心意的礼物。", effect: { frame: 10, attraction: 10 } },
-            { text: "“哇，谢谢！”（大口吃掉）", type: "beta", nextScene: "jf_scene_6_soft", feedback: "容易满足。", effect: { frame: -5, attraction: 0 } }
+            { 
+                text: "“我很贵。一小时500，先付后教，概不赊账。”", 
+                type: "alpha", 
+                nextScene: "jf_2_deal", 
+                feedback: "将暧昧转化为交易，建立高价值框架。",
+                effect: { frame: 10, attraction: 10 },
+                unlockHeroine: "su_xiaoxiao"
+            },
+            { 
+                text: "“修电脑找网管，我是写代码的，不是修破烂的。”", 
+                type: "alpha", 
+                nextScene: "jf_2_reject", 
+                feedback: "极度高傲，彻底激起她的征服欲。",
+                effect: { frame: 20, attraction: 15 },
+                unlockHeroine: "su_xiaoxiao"
+            },
+            { 
+                text: "“好吧，拿来我看看。”（叹气）", 
+                type: "beta", 
+                nextScene: "jf_2_friendzone", 
+                feedback: "你成为了她的工具人。",
+                effect: { frame: -10, attraction: -5 } 
+            }
         ]
     },
-    "jf_scene_5_alliance": {
-        id: "jf_scene_5_alliance",
-        text: "苏小小笑了，这次是真心的笑：“有意思。江枫，我们来做个交易吧。你帮我搞定期末作业，我帮你搞定...你想搞定的任何人。比如，林婉学姐？”",
+
+    // 分支 2：嘲讽
+    "jf_1_mock": {
+        id: "jf_1_mock",
+        text: "苏小小愣住了，随即脸上浮现出一抹红晕——不是害羞，是气愤。她从小到大还没被人嫌弃过“挡光”。\n\n“你这人怎么这样！我好心想认识你，你居然……”她眼眶瞬间红了，演技堪称影后级别，“人家只是想请教你几个问题，你至于这么凶吗？”\n\n周围的“护花使者”们开始蠢蠢欲动，似乎想上来教训你这个不知好歹的穷小子。苏小小嘴角闪过一丝不易察觉的得意，她在等你的道歉。",
         location: "图书馆",
         speaker: "苏小小",
         choices: [
-            { text: "“成交。但我不需要你帮我搞定女人，我只需要你提供情报。”", type: "alpha", nextScene: "jf_scene_6_spy", feedback: "利用她的资源，但依靠自己的能力。", effect: { frame: 15, attraction: 15 } },
-            { text: "“你怎么知道我对林婉感兴趣？”", type: "neutral", nextScene: "jf_scene_6_gossip", feedback: "暴露了意图。", effect: { frame: 0, attraction: 5 } }
+            { 
+                text: "站起来，居高临下地看着她：“收起你的眼泪。在逻辑的世界里，眼泪是最无用的变量。”", 
+                type: "alpha", 
+                nextScene: "jf_2_logic", 
+                feedback: "用绝对理性碾压感性。",
+                effect: { frame: 15, attraction: 20 },
+                unlockHeroine: "su_xiaoxiao"
+            },
+            { 
+                text: "无视她，对着周围的男生说：“谁想当英雄？排队领号，我赶时间。”", 
+                type: "alpha", 
+                nextScene: "jf_2_fight", 
+                feedback: "展示雄性领袖气质。",
+                effect: { frame: 20, attraction: 10 }
+            },
+            { 
+                text: "“对不起，我刚才心情不好。”", 
+                type: "beta", 
+                nextScene: "jf_2_friendzone", 
+                feedback: "道歉即输。",
+                effect: { frame: -15, attraction: -10 } 
+            }
         ]
     },
 
-    // --- 第六阶段剧情 (深入) ---
-    "jf_scene_6_canteen_date": {
-        id: "jf_scene_6_canteen_date",
-        text: "苏小小穿着几千块的裙子，坐在油腻的食堂椅子上，一脸嫌弃。但她还是硬着头皮吃了一口你打的红烧肉。周围的男生眼珠子都快掉出来了。",
-        location: "食堂",
-        speaker: "苏小小",
-        choices: [
-            { text: "“好吃吗？这可是这里的招牌。”（笑着看她）", type: "alpha", nextScene: "jf_scene_7_adaptation", feedback: "强迫她适应你的环境。", effect: { frame: 10, attraction: 15 } }
-        ]
-    },
-    "jf_scene_6_restaurant_trap": {
-        id: "jf_scene_6_restaurant_trap",
-        text: "在西餐厅，苏小小熟练地点了一堆昂贵的菜，然后开始跟你抱怨她的前男友们。你成了一个完美的倾听者（垃圾桶）。",
-        location: "西餐厅",
-        speaker: "苏小小",
-        choices: [
-            { text: "打断她：“我对你的情史没兴趣。吃完这顿，两清。”", type: "alpha", nextScene: "jf_scene_7_break_frame", feedback: "及时止损，挽回一点框架。", effect: { frame: 5, attraction: 0 } },
-            { text: "继续听她抱怨，并安慰她。", type: "beta", nextScene: "jf_scene_friendzone", feedback: "彻底沦陷。", effect: { frame: -10, attraction: -10 } }
-        ]
-    },
-    "jf_scene_6_public_interaction": {
-        id: "jf_scene_6_public_interaction",
-        text: "苏小小愣了一下：“你这人...真是不解风情。请你的，不要钱。” 她把吸管插好递到你嘴边，“尝尝？”",
-        location: "教学楼",
-        speaker: "苏小小",
-        choices: [
-            { text: "接过杯子自己喝：“我不习惯别人喂我。”", type: "alpha", nextScene: "jf_scene_7_indirect_kiss", feedback: "拒绝过度亲密，保持独立。", effect: { frame: 5, attraction: 10 } },
-            { text: "张嘴让她喂。", type: "beta", nextScene: "jf_scene_gameover_beta", feedback: "在大庭广众下像个宠物。", effect: { frame: -20, attraction: -20 } }
-        ]
-    },
-    "jf_scene_6_competition": {
-        id: "jf_scene_6_competition",
-        text: "“奖金一万，五五分。”苏小小爽快地答应了，“不过你要负责写代码，我负责...展示PPT和答辩。”",
-        location: "图书馆外",
-        speaker: "苏小小",
-        choices: [
-            { text: "“七三开。我七你三。因为核心工作是我做的。”", type: "alpha", nextScene: "jf_scene_7_negotiation", feedback: "寸步不让，争取利益最大化。", effect: { frame: 15, attraction: 10 } },
-            { text: "“行，五五分。”", type: "neutral", nextScene: "jf_scene_7_teamwork", feedback: "公平交易。", effect: { frame: 0, attraction: 0 } }
-        ]
-    },
-    "jf_scene_6_rejection_test": {
-        id: "jf_scene_6_rejection_test",
-        text: "苏小小有些委屈：“这可是我排了半小时队买的...” 但她很快调整了情绪，“那你喜欢吃什么？我下次买。”",
+    // 分支 3：礼貌 (过渡)
+    "jf_1_polite": {
+        id: "jf_1_polite",
+        text: "你的反应平平无奇，这让苏小小感到无趣。她撇了撇嘴，觉得你不过是个只会读书的书呆子。但就在她准备离开时，你的手机响了。是辅导员李雅的电话。\n\n“江枫，马上来我办公室一趟。关于你奖学金的事情，有人举报你校外兼职违规。”\n\n苏小小听到了电话内容，眼睛一亮，似乎抓住了你的把柄：“哎呀，学霸要倒霉了？需不需要姐姐帮你求求情？”",
         location: "图书馆",
         speaker: "苏小小",
         choices: [
-            { text: "“我不喜欢吃零食。专心学习。”", type: "alpha", nextScene: "jf_scene_7_study_focus", feedback: "不给奖励，让她继续投入。", effect: { frame: 10, attraction: 15 } }
-        ]
-    },
-    "jf_scene_6_spy": {
-        id: "jf_scene_6_spy",
-        text: "“成交。”苏小小凑近你耳边，“林婉学姐最近在招实习生，但她其实是个颜控，而且讨厌穿格子衫的男生。你明天换身衣服去面试，报我的名字。”",
-        location: "图书馆",
-        speaker: "苏小小",
-        choices: [
-            { text: "“我会去面试。但我穿什么，不用你管。”", type: "alpha", nextScene: "jf_scene_7_interview_prep", feedback: "接受信息，拒绝控制。", effect: { frame: 10, attraction: 5 } }
-        ]
-    },
-
-    // --- 第七阶段剧情 (转折点) ---
-    "jf_scene_7_adaptation": {
-        id: "jf_scene_7_adaptation",
-        text: "苏小小居然真的吃完了。她擦了擦嘴：“其实...味道还不错。江枫，你平时都过着这样的生活吗？” 她的眼神里少了一分戏谑，多了一分探究。",
-        location: "食堂",
-        speaker: "苏小小",
-        choices: [
-            { text: "“这就是真实的生活。不像你的朋友圈，全是滤镜。”", type: "alpha", nextScene: "jf_scene_8_real_talk", feedback: "展示真实，打击虚伪。", effect: { frame: 10, attraction: 20 } }
-        ]
-    },
-    "jf_scene_7_indirect_kiss": {
-        id: "jf_scene_7_indirect_kiss",
-        text: "你喝了一口奶茶，发现杯口有一个淡淡的口红印。苏小小一直盯着你看，脸突然红了：“那个...我刚才喝过一口...”",
-        location: "教学楼",
-        speaker: "苏小小",
-        choices: [
-            { text: "面无表情地转过杯子，从另一边喝：“哦。我不介意。”", type: "alpha", nextScene: "jf_scene_8_ambiguity", feedback: "无视暧昧，让她心跳加速。", effect: { frame: 10, attraction: 25 } },
-            { text: "“啊？间接接吻？”（慌乱）", type: "beta", nextScene: "jf_scene_gameover_beta", feedback: "大惊小怪，魅力全无。", effect: { frame: -10, attraction: -10 } }
-        ]
-    },
-    "jf_scene_7_negotiation": {
-        id: "jf_scene_7_negotiation",
-        text: "苏小小瞪大了眼睛：“你！...好，七三就七三。本小姐不差这点钱。但你要保证拿第一。”",
-        location: "图书馆外",
-        speaker: "苏小小",
-        choices: [
-            { text: "“只要你不拖后腿，第一就是囊中之物。”", type: "alpha", nextScene: "jf_scene_8_competition_day", feedback: "极度自信。", effect: { frame: 10, attraction: 15 } }
-        ]
-    },
-    
-    // --- 结局/分支暂存点 ---
-    "jf_scene_8_real_talk": {
-        id: "jf_scene_8_real_talk",
-        text: "【第一章·完】\n你成功引起了苏小小的深度兴趣，并打破了她的常规认知。在接下来的剧情中，你将面临林婉的职场考验，以及苏小小更猛烈的攻势。",
-        location: "系统",
-        speaker: "SYSTEM",
-        choices: [
-            { text: "进入第二章：冰山女高管", type: "neutral", nextScene: "jf_chapter2_intro", effect: {} }
-        ]
-    },
-    "jf_scene_8_ambiguity": {
-        id: "jf_scene_8_ambiguity",
-        text: "【第一章·完】\n你与苏小小的关系进入了暧昧期，但你始终掌握着主动权。她开始患得患失，这正是你想要的。",
-        location: "系统",
-        speaker: "SYSTEM",
-        choices: [
-            { text: "进入第二章：冰山女高管", type: "neutral", nextScene: "jf_chapter2_intro", effect: {} }
-        ]
-    },
-    "jf_scene_8_competition_day": {
-        id: "jf_scene_8_competition_day",
-        text: "【第一章·完】\n你与苏小小组成了搭档。在即将到来的比赛中，你们将展现出惊人的默契。而这，仅仅是开始。",
-        location: "系统",
-        speaker: "SYSTEM",
-        choices: [
-            { text: "进入第二章：冰山女高管", type: "neutral", nextScene: "jf_chapter2_intro", effect: {} }
+            { 
+                text: "“管好你自己。” 收拾东西直接离开。", 
+                type: "alpha", 
+                nextScene: "jf_1_5_cafeteria", 
+                effect: { frame: 5, attraction: 0 } 
+            },
+            { 
+                text: "“你想怎么样？”", 
+                type: "beta", 
+                nextScene: "jf_2_deal", 
+                effect: { frame: -5, attraction: 5 } 
+            }
         ]
     },
 
-    // --- 失败结局 ---
-    "jf_scene_gameover_beta": {
-        id: "jf_scene_gameover_beta",
-        text: "苏小小露出了无聊的表情：“算了，你真没劲。我去找别人了。” 她转身离开，你彻底失去了机会。",
-        location: "结局",
-        speaker: "系统",
+    // ============================================================
+    // 扩展场景：食堂风波 (连接图书馆与办公室)
+    // ============================================================
+    "jf_1_5_cafeteria": {
+        id: "jf_1_5_cafeteria",
+        text: "离开图书馆后，你并没有直接去办公室，而是先去了食堂。你需要冷静一下。食堂里人声鼎沸，但当你端着最便宜的套餐坐下时，周围的议论声却异常清晰。\n\n“就是他吧？听说为了赚钱什么都干。”\n“装什么清高，还不是被苏小小拒绝了。”\n\n谣言传播的速度比病毒还快。就在这时，几个体育生故意撞翻了你的餐盘，汤汁溅了你一身。带头的正是苏小小的头号追求者，张强。",
+        location: "大学食堂",
+        speaker: "张强",
         choices: [
-            { text: "重新开始", type: "neutral", nextScene: "root_menu", effect: {} }
-        ]
-    },
-    "jf_scene_friendzone": {
-        id: "jf_scene_friendzone",
-        text: "你帮她修好了电脑，还请她喝了奶茶。她说：“你人真好，像我哥哥一样。” 恭喜获得【好人卡】。",
-        location: "结局",
-        speaker: "系统",
-        choices: [
-            { text: "重新开始", type: "neutral", nextScene: "root_menu", effect: {} }
-        ]
-    },
-    "jf_scene_7_break_frame": {
-        id: "jf_scene_7_break_frame",
-        text: "苏小小愣住了，随后冷笑一声：“AA制是吧？行。” 她付了自己的那份，头也不回地走了。虽然你挽回了尊严，但失去了继续互动的机会。",
-        location: "结局",
-        speaker: "系统",
-        choices: [
-            { text: "重新开始", type: "neutral", nextScene: "root_menu", effect: {} }
-        ]
-    },
-    "jf_scene_7_study_focus": {
-        id: "jf_scene_7_study_focus",
-        text: "苏小小看着你认真的侧脸，不再说话，乖乖地坐在旁边看书。虽然她什么都没学进去，但她看了一下午的你。",
-        location: "结局",
-        speaker: "系统",
-        choices: [
-            { text: "返回主菜单", type: "neutral", nextScene: "root_menu", effect: {} }
-        ]
-    },
-    "jf_scene_7_interview_prep": {
-        id: "jf_scene_7_interview_prep",
-        text: "【第一章·完】\n你获得了关于林婉的重要情报。下一章，你将踏入职场，直面那位冰山女高管。",
-        location: "系统",
-        speaker: "SYSTEM",
-        choices: [
-            { text: "进入第二章：冰山女高管", type: "neutral", nextScene: "jf_chapter2_intro", effect: {} }
-        ]
-    },
-    "jf_scene_7_teamwork": {
-        id: "jf_scene_7_teamwork",
-        text: "你们达成了平等的合作关系。虽然这很稳妥，但缺乏激情。苏小小把你当成了可靠的队友，但也仅此而已。",
-        location: "结局",
-        speaker: "系统",
-        choices: [
-            { text: "重新开始", type: "neutral", nextScene: "root_menu", effect: {} }
-        ]
-    },
-    "jf_scene_6_gossip": {
-        id: "jf_scene_6_gossip",
-        text: "苏小小眯起眼睛：“原来你也喜欢那种老女人？没劲。” 她对你的兴趣瞬间减半。",
-        location: "结局",
-        speaker: "系统",
-        choices: [
-            { text: "重新开始", type: "neutral", nextScene: "root_menu", effect: {} }
-        ]
-    },
-    "jf_scene_6_soft": {
-        id: "jf_scene_6_soft",
-        text: "苏小小看着你吃东西的样子，笑了笑：“慢点吃，没人跟你抢。” 她的眼神像是在看一只流浪狗。",
-        location: "结局",
-        speaker: "系统",
-        choices: [
-            { text: "重新开始", type: "neutral", nextScene: "root_menu", effect: {} }
+            { 
+                text: "（反击）捡起地上的不锈钢筷子，瞬间抵住他的喉咙：“道歉。现在。”", 
+                type: "alpha", 
+                nextScene: "jf_1_5_fight_win", 
+                feedback: "展示极度的暴力美学与控制力。",
+                effect: { frame: 20, attraction: 10 } 
+            },
+            { 
+                text: "（隐忍）默默蹲下收拾残局，眼神却死死盯着他，记住了他的脸。", 
+                type: "beta", 
+                nextScene: "jf_3_office", 
+                feedback: "隐忍是为了更狠的报复，但现在你显得很弱。",
+                effect: { frame: -5, attraction: 0 } 
+            },
+            { 
+                text: "（智取）大声说：“张强，你上周作弊的小抄还在我这，想让全校都知道吗？”", 
+                type: "alpha", 
+                nextScene: "jf_1_5_smart_win", 
+                feedback: "掌握信息差，不战而屈人之兵。",
+                effect: { frame: 15, attraction: 5 } 
+            }
         ]
     },
 
-    // ==========================================
-    // 第二章：林婉 (Lin Wan) - 冰山下的征服
-    // ==========================================
-    "jf_chapter2_intro": {
-        id: "jf_chapter2_intro",
-        text: "林氏集团大厦，28层。你穿着借来的西装，坐在面试等待区。周围都是名校毕业的精英，每个人都紧张地背诵着简历。只有你，在观察那个刚刚从办公室走出来的女人——林婉。",
-        location: "林氏集团",
+    "jf_1_5_fight_win": {
+        id: "jf_1_5_fight_win",
+        text: "张强被你眼中的杀气吓住了。他没想到平时沉默寡言的你竟然这么狠。周围一片死寂。他颤抖着说了声对不起，落荒而逃。\n\n你拍了拍身上的灰尘，转身离开。人群自动为你让开了一条路。远处，苏小小正拿着手机录下了这一幕，嘴角微微上扬。",
+        location: "大学食堂",
         speaker: "旁白",
         choices: [
-            { text: "（观察）注意她的走路姿势和微表情。", type: "alpha", nextScene: "jf_c2_observe", effect: { frame: 5, attraction: 0 } },
-            { text: "（紧张）整理一下领带，深呼吸。", type: "beta", nextScene: "jf_c2_nervous", effect: { frame: -5, attraction: 0 } }
+            { text: "整理一下衣服，前往辅导员办公室", type: "neutral", nextScene: "jf_3_office", effect: {} },
+            { text: "冷哼一声，无视众人的目光离开", type: "alpha", nextScene: "jf_3_office", effect: { frame: 5 } }
         ]
     },
-    "jf_c2_observe": {
-        id: "jf_c2_observe",
-        text: "步速极快，每一步距离相等，目光直视前方，没有多余的动作。她在看表的时候眉头微皱。结论：极度守时，控制欲强，且现在心情烦躁。",
-        location: "林氏集团",
+
+    "jf_1_5_smart_win": {
+        id: "jf_1_5_smart_win",
+        text: "张强的脸色瞬间变得惨白。他当然知道你手里有什么。他恶狠狠地瞪了你一眼，带着人灰溜溜地走了。\n\n这场闹剧让你明白，在这个学校，要么有钱，要么有权，要么……就要比别人更狠。",
+        location: "大学食堂",
+        speaker: "旁白",
+        choices: [
+            { text: "前往辅导员办公室", type: "neutral", nextScene: "jf_3_office", effect: {} },
+            { text: "吹个口哨，潇洒地离开食堂", type: "alpha", nextScene: "jf_3_office", effect: { frame: 5 } }
+        ]
+    },
+
+    // ============================================================
+    // 第一章：办公室的博弈 (李雅)
+    // ============================================================
+    "jf_3_office": {
+        id: "jf_3_office",
+        text: "辅导员办公室里冷气开得很足。李雅穿着一身职业套装，黑框眼镜下是严厉的目光。她手里拿着一份举报信，那是你竞争对手写的，指控你在校外接私活，违反了贫困生助学金的规定。\n\n“江枫，解释一下吧。”李雅敲着桌子，“虽然你成绩第一，但原则就是原则。如果这事坐实了，你的奖学金就没了。我知道你家里的情况……”\n\n她的语气中带着一丝不易察觉的关切，但更多的是公事公办的冷漠。她靠在椅背上，双手抱胸，等待着你的乞求。",
+        location: "辅导员办公室",
+        speaker: "李雅",
+        choices: [
+            { 
+                text: "“李老师，我靠自己的技术赚钱，不偷不抢。如果学校觉得这违规，那这笔钱我不要也罢。”", 
+                type: "alpha", 
+                nextScene: "jf_3_pride", 
+                feedback: "展示骨气，不卑不亢。",
+                effect: { frame: 15, attraction: 10 },
+                unlockHeroine: "teacher_li"
+            },
+            { 
+                text: "走到她办公桌前，双手撑在桌面上，俯视她：“李老师，你真的忍心毁掉一个天才的前途吗？还是说，你想用这种方式引起我的注意？”", 
+                type: "alpha", 
+                nextScene: "jf_3_seduce", 
+                feedback: "极度大胆的性张力试探。",
+                effect: { frame: 25, attraction: 20 },
+                unlockHeroine: "teacher_li"
+            },
+            { 
+                text: "“老师，求求你，我不能没有这笔钱……”", 
+                type: "beta", 
+                nextScene: "jf_3_beg", 
+                feedback: "示弱虽然能解决问题，但会失去尊严。",
+                effect: { frame: -20, attraction: 0 } 
+            }
+        ]
+    },
+
+    "jf_3_pride": {
+        id: "jf_3_pride",
+        text: "李雅愣住了。她见过无数学生在她面前哭诉、撒谎、求情，但从未见过像你这样硬气的。她眼中的严厉逐渐消散，取而代之的是一种欣赏。\n\n“你……脾气还挺倔。”她叹了口气，把举报信撕碎扔进垃圾桶，“这次我当没看见。但你得帮我个忙。学生会的网络系统瘫痪了，林婉儿主席正在发火。你去修好它，这事就算翻篇。”",
+        location: "辅导员办公室",
+        speaker: "李雅",
+        choices: [
+            { 
+                text: "“成交。不过，这是最后一次。”", 
+                type: "alpha", 
+                nextScene: "jf_3_5_dorm", 
+                effect: { frame: 10, attraction: 10 } 
+            },
+            { 
+                text: "“谢谢老师！”", 
+                type: "beta", 
+                nextScene: "jf_3_5_dorm", 
+                effect: { frame: -5, attraction: 5 } 
+            }
+        ]
+    },
+
+    "jf_3_seduce": {
+        id: "jf_3_seduce",
+        text: "李雅的脸瞬间红到了耳根。她慌乱地推了推眼镜，试图维持教师的威严，但呼吸明显变得急促：“江枫！你……你在胡说什么！这里是办公室！”\n\n但她没有推开你，也没有喊人。空气中弥漫着禁忌的味道。\n\n“去……去学生会把网络修好。”她声音颤抖，“这件事我们晚上再……再谈。”",
+        location: "辅导员办公室",
+        speaker: "李雅",
+        choices: [
+            { 
+                text: "嘴角上扬，在她耳边低语：“遵命，李老师。”", 
+                type: "alpha", 
+                nextScene: "jf_3_5_dorm", 
+                effect: { frame: 30, attraction: 30 } 
+            }
+        ]
+    },
+
+    // ============================================================
+    // 扩展场景：宿舍准备 (连接办公室与学生会)
+    // ============================================================
+    "jf_3_5_dorm": {
+        id: "jf_3_5_dorm",
+        text: "回到宿舍，你打开电脑，准备应对学生会的烂摊子。你并没有急着去修，而是先入侵了学生会的内网，查看了日志。\n\n果然，不是系统故障，而是有人故意植入了病毒。而这个病毒的签名，你很熟悉——是计算机系副主席的手笔。看来这是一场针对林婉儿的权力斗争。\n\n你手里现在握着两张牌：一是修好系统，二是揭露真相。",
+        location: "男生宿舍",
+        speaker: "旁白",
+        choices: [
+            { 
+                text: "只修好系统，深藏功与名。", 
+                type: "beta", 
+                nextScene: "jf_4_council", 
+                feedback: "稳妥但平庸。",
+                effect: { frame: 0, attraction: 0 } 
+            },
+            { 
+                text: "备份病毒源码作为证据，准备在关键时刻给林婉儿一份“大礼”。", 
+                type: "alpha", 
+                nextScene: "jf_4_council_prepared", 
+                feedback: "未雨绸缪，掌控全局。",
+                effect: { frame: 10, attraction: 5 } 
+            }
+        ]
+    },
+
+    // ============================================================
+    // 第二章：学生会的交锋 (林婉儿)
+    // ============================================================
+    "jf_4_council": {
+        id: "jf_4_council",
+        text: "学生会办公室比校长的办公室还要豪华。真皮沙发、进口咖啡机，还有坐在主位上的林婉儿。她是校董的女儿，真正的天之骄女。此刻，她正对着几个技术部的男生发火。\n\n“一群废物！连个防火墙都搞不定？明天就是校园祭了，系统要是还没恢复，你们全给我滚蛋！”\n\n她看到了进来的你，上下打量了一番你廉价的T恤，眼中闪过一丝不屑：“李老师说的救兵就是你？一个贫困生？你会用电脑吗？”",
+        location: "学生会办公室",
+        speaker: "林婉儿",
+        choices: [
+            { 
+                text: "不发一言，直接推开挡路的技术部长，坐到主控电脑前，开始敲击代码。", 
+                type: "alpha", 
+                nextScene: "jf_4_hack", 
+                feedback: "用实力说话，无视她的嘲讽。",
+                effect: { frame: 15, attraction: 10 },
+                unlockHeroine: "lin_waner"
+            },
+            { 
+                text: "“林主席，如果我修好了，你要为你刚才的无礼道歉。”", 
+                type: "alpha", 
+                nextScene: "jf_4_bet", 
+                feedback: "建立赌约，强迫她低头。",
+                effect: { frame: 20, attraction: 20 },
+                unlockHeroine: "lin_waner"
+            },
+            { 
+                text: "“我会尽力的，林主席。”", 
+                type: "beta", 
+                nextScene: "jf_4_slave", 
+                feedback: "唯唯诺诺，只能当一辈子下人。",
+                effect: { frame: -10, attraction: -10 } 
+            }
+        ]
+    },
+
+    "jf_4_council_prepared": {
+        id: "jf_4_council_prepared",
+        text: "你走进办公室，面对林婉儿的怒火和质疑，你只是淡淡一笑。\n\n“林主席，系统瘫痪不是技术问题，是人祸。”你把打印好的病毒源码扔在桌上，“这是副主席电脑里发出的指令。你想先修电脑，还是先清理门户？”\n\n林婉儿看着那份文件，眼神瞬间变得锐利。她挥手让其他人出去，只留下了你。",
+        location: "学生会办公室",
+        speaker: "林婉儿",
+        choices: [
+            { 
+                text: "“现在，我们可以谈谈报酬了吗？”", 
+                type: "alpha", 
+                nextScene: "jf_4_bet", 
+                feedback: "你不仅是技术人员，更是她的战略盟友。",
+                effect: { frame: 25, attraction: 25 },
+                unlockHeroine: "lin_waner"
+            },
+            { 
+                text: "“我的条件很简单，我要你……”", 
+                type: "alpha", 
+                nextScene: "jf_4_bet", 
+                feedback: "直接提出条件，掌控节奏。",
+                effect: { frame: 25, attraction: 25 },
+                unlockHeroine: "lin_waner"
+            }
+        ]
+    },
+
+    "jf_4_hack": {
+        id: "jf_4_hack",
+        text: "五分钟。仅仅五分钟，屏幕上红色的警报全部转绿。你顺手还优化了他们的垃圾代码，系统运行速度提升了三倍。\n\n你站起身，拍了拍手：“搞定。记得付钱给李老师，算我的奖学金。”\n\n整个办公室鸦雀无声。林婉儿看着屏幕，又看着你，眼神从不屑变成了震惊，最后变成了一种猎人看到猎物的光芒。",
+        location: "学生会办公室",
+        speaker: "林婉儿",
+        choices: [
+            { 
+                text: "转身就走，不带走一片云彩。", 
+                type: "alpha", 
+                nextScene: "jf_4_5_preparation", 
+                effect: { frame: 10, attraction: 15 } 
+            },
+            { 
+                text: "看着她：“现在，谁是废物？”", 
+                type: "alpha", 
+                nextScene: "jf_4_5_preparation", 
+                effect: { frame: 20, attraction: 25 } 
+            }
+        ]
+    },
+
+    "jf_4_bet": {
+        id: "jf_4_bet",
+        text: "林婉儿气极反笑：“好啊。你要是修好了，我不仅道歉，还答应你一个条件。要是修不好，你就给我跪下擦鞋。”\n\n结局毫无悬念。当你按下回车键的那一刻，系统恢复了完美运行。\n\n你转过椅子，看着脸色苍白的林婉儿：“林主席，愿赌服输。”",
+        location: "学生会办公室",
         speaker: "江枫",
         choices: [
-            { text: "利用这个信息，调整面试策略。", type: "alpha", nextScene: "jf_c2_interview_start", effect: { frame: 5, attraction: 0 } }
-        ]
-    },
-    "jf_c2_nervous": {
-        id: "jf_c2_nervous",
-        text: "你的紧张被旁边的人看在眼里，他们露出了轻蔑的笑容。林婉经过时，甚至没有看你一眼。",
-        location: "林氏集团",
-        speaker: "旁白",
-        choices: [
-            { text: "硬着头皮进去。", type: "neutral", nextScene: "jf_c2_interview_start", effect: { frame: -5, attraction: 0 } }
-        ]
-    },
-    "jf_c2_interview_start": {
-        id: "jf_c2_interview_start",
-        text: "办公室里冷气开得很足。林婉坐在宽大的办公桌后，头也没抬：“江枫？计算机系大三。你的简历很普通，给我一个不刷掉你的理由。你有30秒。”",
-        location: "总裁办公室",
-        speaker: "林婉",
-        choices: [
-            { text: "“因为你现在的系统有个致命漏洞，而我是唯一能修好它的人。”", type: "alpha", nextScene: "jf_c2_bold_claim", feedback: "制造危机感，建立不可替代性。", effect: { frame: 15, attraction: 5 }, unlockHeroine: "lin_wan" },
-            { text: "“我...我学习能力很强，而且我很能吃苦。”", type: "beta", nextScene: "jf_c2_fail_boring", feedback: "毫无新意，被秒杀。", effect: { frame: -10, attraction: -10 } },
-            { text: "“苏小小推荐我来的。”", type: "neutral", nextScene: "jf_c2_connection", feedback: "利用关系，但显得无能。", effect: { frame: -5, attraction: 0 } }
-        ]
-    },
-    "jf_c2_bold_claim": {
-        id: "jf_c2_bold_claim",
-        text: "林婉终于抬起头，眼神锐利如刀：“大言不惭。如果你是在虚张声势，我会让你在这个行业混不下去。”",
-        location: "总裁办公室",
-        speaker: "林婉",
-        choices: [
-            { text: "走到她的电脑前：“借用一下键盘。如果不中，我自己滚。”", type: "alpha", nextScene: "jf_c2_tech_show", feedback: "行动胜于雄辩。", effect: { frame: 10, attraction: 10 } }
-        ]
-    },
-    "jf_c2_tech_show": {
-        id: "jf_c2_tech_show",
-        text: "你运指如飞，三分钟后，屏幕上弹出了一个隐藏的后台日志，显示着大量异常数据流。林婉的脸色变了，她站起身，第一次正眼看你。",
-        location: "总裁办公室",
-        speaker: "林婉",
-        choices: [
-            { text: "“这是内部有人在做假账的数据残留。林总，你需要我。”", type: "alpha", nextScene: "jf_c2_hired", feedback: "提供核心价值。", effect: { frame: 15, attraction: 15 } }
-        ]
-    },
-    "jf_c2_fail_boring": {
-        id: "jf_c2_fail_boring",
-        text: "林婉按下了桌上的铃：“下一个。出去的时候把门带上。”",
-        location: "结局",
-        speaker: "系统",
-        choices: [
-            { text: "重新开始", type: "neutral", nextScene: "root_menu", effect: {} }
-        ]
-    },
-    "jf_c2_connection": {
-        id: "jf_c2_connection",
-        text: "“苏小小？”林婉冷笑一声，“那个小丫头自己都还要靠家里。既然是关系户，那就去后勤部搬箱子吧。”",
-        location: "结局",
-        speaker: "系统",
-        choices: [
-            { text: "重新开始", type: "neutral", nextScene: "root_menu", effect: {} }
-        ]
-    },
-    "jf_c2_hired": {
-        id: "jf_c2_hired",
-        text: "林婉盯着你看了许久，重新坐下：“明天来上班。职位是总裁助理，试用期一个月。别高兴得太早，在我手下做事，不死也要脱层皮。”",
-        location: "总裁办公室",
-        speaker: "林婉",
-        choices: [
-            { text: "“我不怕脱皮，只怕老板跟不上我的节奏。”", type: "alpha", nextScene: "jf_c2_work_start", feedback: "保持挑衅姿态。", effect: { frame: 10, attraction: 10 } },
-            { text: "“谢谢林总！我会努力的！”", type: "beta", nextScene: "jf_c2_work_slave", feedback: "沦为普通社畜。", effect: { frame: -5, attraction: -5 } }
-        ]
-    },
-    "jf_c2_work_start": {
-        id: "jf_c2_work_start",
-        text: "入职第一周，林婉给了你堆积如山的工作，而且全是琐事：整理报表、订咖啡、安排行程。她在试图消磨你的锐气。",
-        location: "办公室",
-        speaker: "旁白",
-        choices: [
-            { text: "写个脚本自动处理报表，咖啡叫外卖，行程用AI优化。然后坐在工位上喝茶。", type: "alpha", nextScene: "jf_c2_efficiency", feedback: "降维打击，拒绝服从性测试。", effect: { frame: 15, attraction: 10 } },
-            { text: "任劳任怨，加班到深夜。", type: "beta", nextScene: "jf_c2_burnout", feedback: "通过了测试，但失去了魅力。", effect: { frame: -5, attraction: -5 } }
-        ]
-    },
-    "jf_c2_efficiency": {
-        id: "jf_c2_efficiency",
-        text: "林婉走出办公室，看到你悠闲的样子，刚要发火，却发现所有工作都完美完成了。她把一份文件摔在你桌上：“既然你这么闲，今晚陪我去应酬。有个难缠的客户。”",
-        location: "办公室",
-        speaker: "林婉",
-        choices: [
-            { text: "“加班费另算。还有，我不挡酒。”", type: "alpha", nextScene: "jf_c2_dinner", feedback: "设立底线。", effect: { frame: 10, attraction: 5 } }
-        ]
-    },
-    "jf_c2_dinner": {
-        id: "jf_c2_dinner",
-        text: "酒桌上，那个秃顶的客户一直试图灌林婉的酒，还动手动脚。林婉虽然强势，但在这种场合也有些招架不住，眼神中流露出一丝求助。",
-        location: "豪华包厢",
-        speaker: "旁白",
-        choices: [
-            { text: "按住客户的手，微笑着说：“王总，林总胃不好。这杯我替她喝，不过喝完这杯，合同是不是该签了？”", type: "alpha", nextScene: "jf_c2_hero", feedback: "展示保护欲与掌控力。", effect: { frame: 20, attraction: 20 } },
-            { text: "装作没看见，低头吃菜。", type: "neutral", nextScene: "jf_c2_coward", feedback: "失去信任。", effect: { frame: -10, attraction: -20 } }
-        ]
-    },
-    "jf_c2_hero": {
-        id: "jf_c2_hero",
-        text: "你连喝三杯，气势逼人。王总被你的眼神震慑住了，加上林婉在旁边的配合，乖乖签了字。回去的路上，林婉坐在后座，揉着太阳穴：“今天...谢谢你。”",
-        location: "林婉的车",
-        speaker: "林婉",
-        choices: [
-            { text: "“不用谢。我是为了我的奖金。还有，下次别穿这么短的裙子见客户，影响我发挥。”", type: "alpha", nextScene: "jf_c2_car_moment", feedback: "打压+关心，情绪过山车。", effect: { frame: 15, attraction: 25 } },
-            { text: "“林总客气了，这是我应该做的。”", type: "beta", nextScene: "jf_c2_driver_zone", feedback: "客气得像个司机。", effect: { frame: -5, attraction: 0 } }
-        ]
-    },
-    "jf_c2_car_moment": {
-        id: "jf_c2_car_moment",
-        text: "林婉愣了一下，随即有些恼怒：“你管得太宽了！” 但她没有反驳你的话，反而把裙摆往下拉了拉。车厢里的气氛变得有些微妙。",
-        location: "林婉的车",
-        speaker: "旁白",
-        choices: [
-            { text: "闭目养神，不再说话。", type: "alpha", nextScene: "jf_c2_silence", feedback: "留白，让暧昧发酵。", effect: { frame: 5, attraction: 10 } }
-        ]
-    },
-    "jf_c2_silence": {
-        id: "jf_c2_silence",
-        text: "【第二章·完】\n你成功进入了林婉的核心圈层，并展示了你的强大。她开始依赖你，同时也开始警惕这种依赖。然而，职场的硝烟让你感到一丝疲惫，你决定回学校透透气。",
-        location: "系统",
-        speaker: "SYSTEM",
-        choices: [
-            { text: "进入第三章：知性辅导员", type: "neutral", nextScene: "jf_chapter3_intro", effect: {} }
-        ]
-    },
-    
-    // --- 失败/分支结局 ---
-    "jf_c2_work_slave": {
-        id: "jf_c2_work_slave",
-        text: "你成为了林婉完美的奴隶。她对你很满意，但永远不会爱上你。你将在无尽的加班中度过余生。",
-        location: "结局",
-        speaker: "系统",
-        choices: [
-            { text: "重新开始", type: "neutral", nextScene: "root_menu", effect: {} }
-        ]
-    },
-    "jf_c2_burnout": {
-        id: "jf_c2_burnout",
-        text: "一个月后，你因为过劳晕倒在岗位上。林婉给了你一笔赔偿金，把你辞退了：“身体太差，不适合这里。”",
-        location: "结局",
-        speaker: "系统",
-        choices: [
-            { text: "重新开始", type: "neutral", nextScene: "root_menu", effect: {} }
-        ]
-    },
-    "jf_c2_coward": {
-        id: "jf_c2_coward",
-        text: "林婉最后还是被灌醉了。第二天，她把你叫到办公室，冷冷地说：“你被解雇了。我不需要一个懦夫。”",
-        location: "结局",
-        speaker: "系统",
-        choices: [
-            { text: "重新开始", type: "neutral", nextScene: "root_menu", effect: {} }
-        ]
-    },
-    "jf_c2_driver_zone": {
-        id: "jf_c2_driver_zone",
-        text: "林婉恢复了冰冷的面孔：“嗯。明天准时上班。” 你们之间刚刚升起的一点火花熄灭了。",
-        location: "结局",
-        speaker: "系统",
-        choices: [
-            { text: "重新开始", type: "neutral", nextScene: "root_menu", effect: {} }
+            { 
+                text: "“我的条件是：今晚的校园祭舞会，你要做我的舞伴。”", 
+                type: "alpha", 
+                nextScene: "jf_4_5_preparation", 
+                feedback: "公开宣示主权，打破阶级壁垒。",
+                effect: { frame: 30, attraction: 40 } 
+            },
+            { 
+                text: "“道歉就不必了。以后对我客气点。”", 
+                type: "beta", 
+                nextScene: "jf_4_5_preparation", 
+                feedback: "错失了进一步控制她的机会。",
+                effect: { frame: 0, attraction: 10 } 
+            }
         ]
     },
 
-    // ==========================================
-    // 第三章：李雅 (Teacher Li) - 禁忌的避风港
-    // ==========================================
-    "jf_chapter3_intro": {
-        id: "jf_chapter3_intro",
-        text: "深夜的校园静悄悄的。你刚处理完林氏集团的烂摊子，身心俱疲。路过辅导员办公室时，你发现灯还亮着。透过窗户，你看到李雅老师正趴在桌子上，肩膀微微耸动，似乎在哭。",
-        location: "辅导员办公室外",
+    // ============================================================
+    // 扩展场景：舞会前夕 (连接学生会与终章)
+    // ============================================================
+    "jf_4_5_preparation": {
+        id: "jf_4_5_preparation",
+        text: "校园祭当晚，整个学校都沸腾了。你回到宿舍换衣服，却发现床上放着一套昂贵的高定西装。没有署名，但你知道是谁送的。\n\n手机震动，三条消息同时进来：\n苏小小：“我在礼堂门口等你，不见不散哦~”\n林婉儿：“西装合身吗？别给我丢人。”\n李雅：“今晚……我在办公室等你，如果你想来的话。”\n\n你穿上西装，看着镜子里的自己。那个贫困生江枫已经死了，今晚，是新王的加冕礼。",
+        location: "男生宿舍",
         speaker: "旁白",
         choices: [
-            { text: "（敲门）“李老师，这么晚还没走？”", type: "alpha", nextScene: "jf_c3_knock", effect: { frame: 5, attraction: 0 } },
-            { text: "（偷听）靠近一点，听听她在说什么。", type: "neutral", nextScene: "jf_c3_eavesdrop", effect: { frame: 0, attraction: 0 } },
-            { text: "（离开）多一事不如少一事。", type: "beta", nextScene: "jf_c3_ignore", effect: { frame: -5, attraction: 0 } }
-        ]
-    },
-    "jf_c3_knock": {
-        id: "jf_c3_knock",
-        text: "李雅惊慌失措地抬起头，胡乱擦了擦脸上的泪水：“是...是江枫啊。这么晚了，有什么事吗？” 她试图维持老师的威严，但红肿的眼睛出卖了她。",
-        location: "辅导员办公室",
-        speaker: "李雅",
-        choices: [
-            { text: "递过去一张纸巾，不说话，只是静静地看着她。", type: "alpha", nextScene: "jf_c3_silence_comfort", feedback: "无声的陪伴往往更有力量。", effect: { frame: 10, attraction: 10 }, unlockHeroine: "teacher_li" },
-            { text: "“老师，你怎么了？谁欺负你了？”", type: "beta", nextScene: "jf_c3_ask_direct", feedback: "过度关心，显得幼稚。", effect: { frame: -5, attraction: 0 } }
-        ]
-    },
-    "jf_c3_eavesdrop": {
-        id: "jf_c3_eavesdrop",
-        text: "你听到她在打电话：“妈，我真的不想去相亲了...我知道他条件好，可是...求求你们别逼我了...” 原来是被催婚。",
-        location: "办公室外",
-        speaker: "李雅",
-        choices: [
-            { text: "推门而入：“李老师，需要临时男友吗？我很贵的。”", type: "alpha", nextScene: "jf_c3_fake_bf", feedback: "幽默化解尴尬，提供价值。", effect: { frame: 15, attraction: 15 }, unlockHeroine: "teacher_li" },
-            { text: "悄悄离开，假装不知道。", type: "neutral", nextScene: "jf_c3_ignore", effect: { frame: 0, attraction: 0 } }
-        ]
-    },
-    "jf_c3_silence_comfort": {
-        id: "jf_c3_silence_comfort",
-        text: "李雅接过纸巾，情绪终于崩溃了。她断断续续地讲了家里的压力，以及作为大龄单身女青年的焦虑。你一直没有打断她，直到她平静下来。",
-        location: "辅导员办公室",
-        speaker: "李雅",
-        choices: [
-            { text: "“说完了？那现在听我说。你的人生不属于你父母，也不属于那些相亲对象。它属于你自己。”", type: "alpha", nextScene: "jf_c3_philosophy", feedback: "提供精神指引，建立高位。", effect: { frame: 10, attraction: 15 } }
-        ]
-    },
-    "jf_c3_fake_bf": {
-        id: "jf_c3_fake_bf",
-        text: "李雅被你的突然闯入吓了一跳，随即破涕为笑：“你这孩子，胡说什么呢...不过，如果你真的能帮我挡一次，老师请你吃大餐。”",
-        location: "辅导员办公室",
-        speaker: "李雅",
-        choices: [
-            { text: "“我不吃大餐。我要你答应我一个条件。”", type: "alpha", nextScene: "jf_c3_condition", feedback: "建立契约，增加沉没成本。", effect: { frame: 10, attraction: 10 } }
-        ]
-    },
-    "jf_c3_philosophy": {
-        id: "jf_c3_philosophy",
-        text: "李雅愣愣地看着你，仿佛第一次认识这个平时沉默寡言的学生。她突然觉得，眼前的这个男生比那些所谓的成功人士都要成熟。",
-        location: "辅导员办公室",
-        speaker: "李雅",
-        choices: [
-            { text: "起身准备离开：“早点睡吧，李老师。明天又是新的一天。”", type: "alpha", nextScene: "jf_c3_leave_impression", feedback: "适可而止，留下回味。", effect: { frame: 5, attraction: 10 } }
-        ]
-    },
-    "jf_c3_condition": {
-        id: "jf_c3_condition",
-        text: "“什么...什么条件？”李雅有些紧张，又有些期待。",
-        location: "辅导员办公室",
-        speaker: "李雅",
-        choices: [
-            { text: "凑近她耳边：“以后在学校，别把我当学生看。把我当男人看。”", type: "alpha", nextScene: "jf_c3_tension", feedback: "打破师生框架，建立男女框架。", effect: { frame: 20, attraction: 25 } }
-        ]
-    },
-    "jf_c3_tension": {
-        id: "jf_c3_tension",
-        text: "李雅的脸瞬间红透了，心跳声在安静的办公室里清晰可闻。她没有拒绝，只是低下了头：“你...快回去睡觉吧。”",
-        location: "辅导员办公室",
-        speaker: "李雅",
-        choices: [
-            { text: "微笑着离开。", type: "alpha", nextScene: "jf_c3_end_success", effect: { frame: 5, attraction: 5 } }
-        ]
-    },
-    "jf_c3_leave_impression": {
-        id: "jf_c3_leave_impression",
-        text: "看着你离去的背影，李雅感到一种前所未有的安心。她拿起手机，把那个相亲对象的微信拉黑了。",
-        location: "辅导员办公室",
-        speaker: "旁白",
-        choices: [
-            { text: "继续剧情", type: "neutral", nextScene: "jf_c3_end_success", effect: {} }
-        ]
-    },
-    "jf_c3_end_success": {
-        id: "jf_c3_end_success",
-        text: "【第三章·完】\n你成功走进了李雅的内心世界，成为了她精神上的支柱。现在，你手里握着校花、女高管和女老师三张牌。是时候面对最终的挑战了。",
-        location: "系统",
-        speaker: "SYSTEM",
-        choices: [
-            { text: "进入终章：修罗场", type: "neutral", nextScene: "jf_chapter4_intro", effect: {} }
-        ]
-    },
-    
-    // --- 失败/分支结局 ---
-    "jf_c3_ignore": {
-        id: "jf_c3_ignore",
-        text: "你选择了无视。第二天，你听说李雅老师请了长假，回老家结婚去了。你失去了一个重要的攻略对象。",
-        location: "结局",
-        speaker: "系统",
-        choices: [
-            { text: "重新开始", type: "neutral", nextScene: "root_menu", effect: {} }
-        ]
-    },
-    "jf_c3_ask_direct": {
-        id: "jf_c3_ask_direct",
-        text: "李雅擦干眼泪，恢复了老师的架子：“大人的事小孩别管。快回去睡觉，不然扣你学分。”",
-        location: "结局",
-        speaker: "系统",
-        choices: [
-            { text: "重新开始", type: "neutral", nextScene: "root_menu", effect: {} }
+            { 
+                text: "整理领带，大步走向礼堂。", 
+                type: "alpha", 
+                nextScene: "jf_5_climax", 
+                feedback: "迎接最终的修罗场。",
+                effect: { frame: 10, attraction: 10 } 
+            },
+            { 
+                text: "深吸一口气，推开宿舍大门。", 
+                type: "neutral", 
+                nextScene: "jf_5_climax", 
+                feedback: "平静地迎接命运。",
+                effect: { frame: 0, attraction: 0 } 
+            }
         ]
     },
 
-    // ==========================================
-    // 终章：修罗场 (The Finale) - 巅峰对决
-    // ==========================================
-    "jf_chapter4_intro": {
-        id: "jf_chapter4_intro",
-        text: "林氏集团赞助的校庆晚会。灯光璀璨，名流云集。你身穿定制西装，站在宴会厅中央。苏小小在舞台上领舞，林婉在主桌与校领导交谈，李雅老师在角落里注视着你。空气中弥漫着一种微妙的张力。",
-        location: "校庆晚会",
+    // ============================================================
+    // 终章：校园祭的修罗场
+    // ============================================================
+    "jf_5_climax": {
+        id: "jf_5_climax",
+        text: "校园祭的夜晚，灯火通明。你站在礼堂中央，成为了全场的焦点。因为你不仅解决了系统危机，还同时引起了三个女人的注意。\n\n苏小小穿着华丽的礼服，端着酒杯向你走来，眼神里充满了占有欲；\n林婉儿站在二楼的VIP台上，目光紧紧锁着你，仿佛在看自己的私有财产；\n李雅老师在角落里，默默地注视着你，眼神复杂而炽热。\n\n今晚，你将选择谁？",
+        location: "校园祭礼堂",
         speaker: "旁白",
         choices: [
-            { text: "走向林婉，展示你的职场地位。", type: "alpha", nextScene: "jf_c4_lin_wan", effect: { frame: 5, attraction: 0 } },
-            { text: "走向苏小小，夸奖她的舞蹈。", type: "alpha", nextScene: "jf_c4_su_xiaoxiao", effect: { frame: 5, attraction: 0 } },
-            { text: "走向李雅，给她递一杯果汁。", type: "alpha", nextScene: "jf_c4_teacher_li", effect: { frame: 5, attraction: 0 } },
-            { text: "站在原地，等待她们来找你。", type: "alpha", nextScene: "jf_c4_wait", effect: { frame: 10, attraction: 10 } }
+            { 
+                text: "走向苏小小，接受这个妖精的投怀送抱。", 
+                type: "alpha", 
+                nextScene: "jf_end_su", 
+                effect: { frame: 10, attraction: 10 } 
+            },
+            { 
+                text: "走上二楼，牵起林婉儿的手，征服这个高傲的女王。", 
+                type: "alpha", 
+                nextScene: "jf_end_lin", 
+                effect: { frame: 10, attraction: 10 } 
+            },
+            { 
+                text: "走向角落的李雅，在这个喧嚣的夜晚给她一个承诺。", 
+                type: "alpha", 
+                nextScene: "jf_end_li", 
+                effect: { frame: 10, attraction: 10 } 
+            },
+            { 
+                text: "“小孩子才做选择。”（全员攻略路线开启）", 
+                type: "alpha", 
+                nextScene: "jf_end_harem", 
+                effect: { frame: 50, attraction: 50 } 
+            }
         ]
     },
-    "jf_c4_lin_wan": {
-        id: "jf_c4_lin_wan",
-        text: "林婉看到你走来，眼中闪过一丝柔和。她向校领导介绍：“这是我的...特别助理，江枫。这次的项目全靠他。” 校领导们纷纷向你敬酒。",
-        location: "主桌",
-        speaker: "林婉",
-        choices: [
-            { text: "得体应对，不卑不亢。", type: "alpha", nextScene: "jf_c4_rival_appear", effect: { frame: 5, attraction: 5 } }
-        ]
+
+    // 结局分支
+    "jf_end_su": {
+        id: "jf_end_su",
+        text: "【结局：驯服妖精】\n苏小小彻底沦陷了。她不再是那个玩弄人心的绿茶，而是你身边最听话的小猫。她为你挡掉了所有烂桃花，只为了博你一笑。",
+        location: "结局",
+        speaker: "系统",
+        choices: [{ text: "返回主菜单", type: "neutral", nextScene: "root_menu", effect: {} }]
     },
-    "jf_c4_su_xiaoxiao": {
-        id: "jf_c4_su_xiaoxiao",
-        text: "苏小小跳下舞台，直接挽住你的胳膊，挑衅地看着周围的女生：“江枫学长，我刚才跳得好不好看？”",
-        location: "舞台旁",
+    "jf_end_lin": {
+        id: "jf_end_lin",
+        text: "【结局：入赘豪门？不，是掌权者】\n你没有成为林家的赘婿，而是凭借才华和手段，成为了林婉儿背后的真正掌权人。她依然高傲，但在你面前，她只是一个小女人。",
+        location: "结局",
+        speaker: "系统",
+        choices: [{ text: "返回主菜单", type: "neutral", nextScene: "root_menu", effect: {} }]
+    },
+    "jf_end_li": {
+        id: "jf_end_li",
+        text: "【结局：禁忌之恋】\n你和李雅的关系成为了校园里公开的秘密。她依然是那个严厉的辅导员，但在无人的办公室里，她是属于你的温柔乡。",
+        location: "结局",
+        speaker: "系统",
+        choices: [{ text: "返回主菜单", type: "neutral", nextScene: "root_menu", effect: {} }]
+    },
+    "jf_end_harem": {
+        id: "jf_end_harem",
+        text: "【结局：校园之王】\n你没有做出选择，因为你不需要选择。苏小小的崇拜、林婉儿的资源、李雅的关怀，你全部都要。在这个校园里，你就是唯一的王。",
+        location: "结局",
+        speaker: "系统",
+        choices: [{ text: "返回主菜单", type: "neutral", nextScene: "root_menu", effect: {} }]
+    },
+
+    // 补全缺失分支
+    "jf_2_logic": {
+        id: "jf_2_logic",
+        text: "苏小小被你冰冷的逻辑噎得说不出话来。她擦了擦眼角的泪水，眼神中竟然闪过一丝兴奋——她从未见过如此理智到近乎冷酷的男人。\n\n“好……好样的。”她咬着牙笑了，“江枫，你成功引起了我的注意。逻辑是吧？我会让你知道，感情才是这个世界上最无解的算法。”\n\n她转身离开，留下一个意味深长的背影。",
+        location: "图书馆",
         speaker: "苏小小",
         choices: [
-            { text: "“还不错。但如果不踩错那个拍子就更好了。”", type: "alpha", nextScene: "jf_c4_rival_appear", feedback: "打压，保持框架。", effect: { frame: 5, attraction: 5 } }
+            { text: "继续写代码，直到肚子饿了", type: "neutral", nextScene: "jf_1_5_cafeteria", effect: {} },
+            { text: "摇摇头，感叹人类的非理性", type: "alpha", nextScene: "jf_1_5_cafeteria", effect: { frame: 5 } }
         ]
     },
-    "jf_c4_teacher_li": {
-        id: "jf_c4_teacher_li",
-        text: "李雅接过果汁，有些局促：“这种场合我真不习惯...幸好有你在。” 她下意识地往你身后躲了躲。",
-        location: "角落",
-        speaker: "李雅",
+    "jf_2_fight": {
+        id: "jf_2_fight",
+        text: "几个男生被你凌厉的眼神震慑住了。他们互相对视了一眼，谁也不敢做那个出头鸟。毕竟，你虽然穷，但打架不要命的传闻他们也听过。\n\n“切，一群怂包。”苏小小不屑地看了那些男生一眼，然后转头看向你，眼中满是欣赏，“够狂。本小姐喜欢。”\n\n她踩着高跟鞋离开了，但你知道，这只是暴风雨前的宁静。",
+        location: "图书馆",
+        speaker: "苏小小",
         choices: [
-            { text: "“别怕，有我在。”", type: "alpha", nextScene: "jf_c4_rival_appear", effect: { frame: 5, attraction: 5 } }
-        ]
-    },
-    "jf_c4_wait": {
-        id: "jf_c4_wait",
-        text: "你没有动。片刻后，林婉、苏小小和李雅竟然同时向你走来。周围的人群自动让开了一条路。这一刻，你是全场的焦点。",
-        location: "宴会厅中央",
-        speaker: "旁白",
-        choices: [
-            { text: "微笑着迎接她们。", type: "alpha", nextScene: "jf_c4_rival_appear", effect: { frame: 15, attraction: 15 } }
-        ]
-    },
-    "jf_c4_rival_appear": {
-        id: "jf_c4_rival_appear",
-        text: "突然，门口传来一阵骚动。李泽（财阀继承人）带着几个保镖走了进来。他径直走到林婉面前：“婉儿，听说你找了个穷学生当助理？别丢林家的脸了。”",
-        location: "宴会厅",
-        speaker: "李泽",
-        choices: [
-            { text: "挡在林婉身前：“李总，这里是校庆，不是你的后花园。请自重。”", type: "alpha", nextScene: "jf_c4_confrontation", feedback: "正面硬刚。", effect: { frame: 10, attraction: 10 } },
-            { text: "冷眼旁观，看林婉怎么处理。", type: "neutral", nextScene: "jf_c4_lin_wan_defend", effect: { frame: 0, attraction: 0 } }
-        ]
-    },
-    "jf_c4_confrontation": {
-        id: "jf_c4_confrontation",
-        text: "李泽不屑地看着你：“你算什么东西？信不信我让你明天就从这个城市消失？” 气氛剑拔弩张。",
-        location: "宴会厅",
-        speaker: "李泽",
-        choices: [
-            { text: "“你可以试试。不过在那之前，你私自挪用公款的证据就会出现在证监会的邮箱里。”", type: "alpha", nextScene: "jf_c4_victory", feedback: "利用黑客技能（陈默线伏笔）或情报能力，一击必杀。", effect: { frame: 20, attraction: 20 } }
-        ]
-    },
-    "jf_c4_lin_wan_defend": {
-        id: "jf_c4_lin_wan_defend",
-        text: "林婉冷冷地开口：“李泽，江枫是我的人。你侮辱他，就是侮辱我。保安，送客。”",
-        location: "宴会厅",
-        speaker: "林婉",
-        choices: [
-            { text: "微笑着对李泽挥手：“慢走不送。”", type: "alpha", nextScene: "jf_c4_victory", effect: { frame: 10, attraction: 10 } }
-        ]
-    },
-    "jf_c4_victory": {
-        id: "jf_c4_victory",
-        text: "李泽脸色铁青，但在众目睽睽之下，只能灰溜溜地离开。全场爆发出热烈的掌声。林婉、苏小小和李雅都用崇拜的眼神看着你。",
-        location: "宴会厅",
-        speaker: "旁白",
-        choices: [
-            { text: "走向林婉，牵起她的手。", type: "alpha", nextScene: "jf_ending_lin_wan", effect: {} },
-            { text: "走向苏小小，摸摸她的头。", type: "alpha", nextScene: "jf_ending_su_xiaoxiao", effect: {} },
-            { text: "走向李雅，给她一个拥抱。", type: "alpha", nextScene: "jf_ending_teacher_li", effect: {} },
-            { text: "“小孩子才做选择，我全都要。”（隐藏结局）", type: "alpha", nextScene: "jf_ending_harem", effect: { frame: 50, attraction: 50 } }
+            { text: "收拾东西去吃饭", type: "neutral", nextScene: "jf_1_5_cafeteria", effect: {} },
+            { text: "眼神扫视全场，无人敢对视", type: "alpha", nextScene: "jf_1_5_cafeteria", effect: { frame: 5 } }
         ]
     },
 
-    // --- 最终结局 ---
-    "jf_ending_lin_wan": {
-        id: "jf_ending_lin_wan",
-        text: "【结局：冰山融化】\n你选择了林婉。几年后，你们成为了商界最令人闻风丧胆的“神雕侠侣”。她依然强势，但在你面前，她只是一个小女人。",
-        location: "结局",
-        speaker: "系统",
+    // 失败/普通分支的后续（避免无结果）
+    "jf_2_reject": {
+        id: "jf_2_reject",
+        text: "苏小小被你气走了。但第二天，你的桌上多了一份早餐和一张纸条：“本小姐不信搞不定你。”\n看来，你的拒绝反而激起了她的斗志。游戏才刚刚开始。",
+        location: "教室",
+        speaker: "旁白",
         choices: [
-            { text: "返回主菜单", type: "neutral", nextScene: "root_menu", effect: {} }
+            { text: "继续保持高冷", type: "alpha", nextScene: "jf_1_5_cafeteria", effect: { frame: 5, attraction: 5 } },
+            { text: "吃掉早餐", type: "beta", nextScene: "jf_1_5_cafeteria", effect: { frame: -5, attraction: 0 } }
         ]
     },
-    "jf_ending_su_xiaoxiao": {
-        id: "jf_ending_su_xiaoxiao",
-        text: "【结局：驯服绿茶】\n你选择了苏小小。她收起了所有的套路，只为你一个人展现真心。你们的生活充满了情趣和博弈，永远不会无聊。",
-        location: "结局",
-        speaker: "系统",
+    "jf_2_deal": {
+        id: "jf_2_deal",
+        text: "苏小小愣住了，显然没见过跟她谈钱的男生。她咬咬牙，转给你500块：“行，本小姐有的是钱。但你要是教不会，我就赖上你了。”\n你收了钱，开始专业教学，全程无视她的肢体接触。这反而让她对你更感兴趣了。",
+        location: "图书馆",
+        speaker: "苏小小",
         choices: [
-            { text: "返回主菜单", type: "neutral", nextScene: "root_menu", effect: {} }
+            { text: "结束教学，去食堂吃饭", type: "neutral", nextScene: "jf_1_5_cafeteria", effect: {} },
+            { text: "数了数钱，满意地离开", type: "alpha", nextScene: "jf_1_5_cafeteria", effect: { frame: 5 } }
         ]
     },
-    "jf_ending_teacher_li": {
-        id: "jf_ending_teacher_li",
-        text: "【结局：灵魂伴侣】\n你选择了李雅。你们过着平静而幸福的生活。她是你的避风港，你是她的守护神。",
-        location: "结局",
-        speaker: "系统",
+    "jf_2_friendzone": {
+        id: "jf_2_friendzone",
+        text: "你帮她修好了电脑，她笑着说了声谢谢，然后转身就和别的男生去吃饭了。你看着她的背影，意识到自己只是个备胎。\n但生活还得继续，辅导员的电话打破了你的自怨自艾。",
+        location: "图书馆",
+        speaker: "旁白",
         choices: [
-            { text: "返回主菜单", type: "neutral", nextScene: "root_menu", effect: {} }
+            { text: "接电话", type: "neutral", nextScene: "jf_3_office", effect: {} },
+            { text: "叹了口气，接起电话", type: "beta", nextScene: "jf_3_office", effect: { frame: -5 } }
         ]
     },
-    "jf_ending_harem": {
-        id: "jf_ending_harem",
-        text: "【隐藏结局：恋爱主导者】\n你没有做出选择，或者说，你选择了所有人。凭借着超高的情商和手段，你维持着一种微妙的平衡。你是她们唯一的王。",
+    "jf_3_beg": {
+        id: "jf_3_beg",
+        text: "李雅看着你卑微的样子，眼中闪过一丝失望。她摆摆手：“行了，这次就算了。以后注意点。”\n虽然保住了奖学金，但你失去了她的尊重。不过，机会总是有的，学生会那边似乎出了点问题……",
+        location: "办公室",
+        speaker: "旁白",
+        choices: [
+            { text: "去学生会看看", type: "neutral", nextScene: "jf_4_council", effect: {} }
+        ]
+    },
+    "jf_4_slave": {
+        id: "jf_4_slave",
+        text: "你唯唯诺诺的态度让林婉儿很满意，但也很轻视。你修好了电脑，她扔给你几张钞票：“干得不错，赏你的。”\n你拿着钱，心里五味杂陈。这不是你想要的逆袭，但至少你活下来了。",
         location: "结局",
         speaker: "系统",
         choices: [
-            { text: "返回主菜单", type: "neutral", nextScene: "root_menu", effect: {} }
+            { text: "重新开始，找回尊严", type: "neutral", nextScene: "intro_jiang_feng", effect: {} }
         ]
     }
 });
