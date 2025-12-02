@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love in Control | 恋爱主导权</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- 引入 Font Awesome 用于图标 (可选，这里用文字代替或SVG) -->
+</head>
+<body>
+    <div id="app">
+        <!-- 粒子背景 -->
+        <canvas id="particle-canvas"></canvas>
+
+        <!-- 汉堡菜单按钮 -->
+        <button id="menu-toggle" class="hidden" onclick="ui.toggleMenu()">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </button>
+
+        <!-- 导航菜单 (原侧边栏) -->
+        <nav id="nav-menu">
+            <div class="logo">L.I.C.</div>
+            <button class="nav-btn" onclick="ui.showScreen('game'); ui.toggleMenu()">剧情终端</button>
+            <button class="nav-btn" onclick="ui.showScreen('profile'); ui.toggleMenu()">个人档案</button>
+            <button class="nav-btn" onclick="ui.showScreen('harem'); ui.toggleMenu()">关系网络</button>
+            <button class="nav-btn" onclick="saveSystem.saveGame(); ui.toggleMenu()">保存进度</button>
+            <button class="nav-btn" onclick="game.quitGame(); ui.toggleMenu()">退出游戏</button>
+        </nav>
+
+        <!-- 主内容区 -->
+        <main id="main-content">
+            
+            <!-- 0. 主菜单 -->
+            <div id="screen-menu" class="screen active">
+                <div class="menu-container">
+                    <h1 class="menu-title">LOVE IN CONTROL</h1>
+                    <h2 class="menu-subtitle">恋爱主导权</h2>
+                    <div class="menu-buttons">
+                        <button class="menu-btn" onclick="game.startIntro()">开始新游戏</button>
+                        <button class="menu-btn" onclick="saveSystem.loadGame()">继续游戏</button>
+                        <button class="menu-btn" onclick="ui.showScreen('system')">系统设置</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 1. 游戏主界面 -->
+            <div id="screen-game" class="screen">
+                <div id="scene-header">
+                    <span id="location-tag">LOCATION: UNKNOWN</span>
+                    <div id="status-indicators">
+                        <div class="stat-box">
+                            <span class="label">FRAME (框架)</span>
+                            <div class="progress-bar"><div id="bar-frame" style="width: 50%"></div></div>
+                            <span id="val-frame" class="value">50</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="label">ATTRACTION (吸引)</span>
+                            <div class="progress-bar"><div id="bar-attraction" style="width: 0%"></div></div>
+                            <span id="val-attraction" class="value">0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="visual-display">
+                    <div id="scene-visual-text"></div>
+                </div>
+
+                <div id="interaction-area">
+                    <div id="dialogue-container">
+                        <div id="speaker-tag">SYSTEM</div>
+                        <div id="dialogue-text">系统初始化中...</div>
+                    </div>
+
+                    <div id="choices-container">
+                        <!-- 选项动态生成 -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. 个人档案界面 (选择角色) -->
+            <div id="screen-profile" class="screen">
+                <h2>选择你的身份 (IDENTITY)</h2>
+                <div id="character-select-grid">
+                    <!-- 角色卡片动态生成 -->
+                </div>
+                <div id="current-character-info" class="hidden">
+                    <h3 id="char-name"></h3>
+                    <p id="char-bio"></p>
+                    <button class="action-btn" onclick="game.restartWithCharacter()">重新开始剧情</button>
+                </div>
+            </div>
+
+            <!-- 3. 关系网络 (后宫) -->
+            <div id="screen-harem" class="screen">
+                <h2>目标管理 (TARGETS)</h2>
+                <div id="harem-grid">
+                    <!-- 女主卡片动态生成 -->
+                </div>
+            </div>
+
+            <!-- 4. 系统设置 (存档/读档) -->
+            <div id="screen-system" class="screen">
+                <h2>系统控制 (SYSTEM)</h2>
+                <div class="system-panel">
+                    <button class="sys-btn" onclick="saveSystem.saveGame()">保存进度 (SAVE)</button>
+                    <button class="sys-btn" onclick="saveSystem.loadGame()">读取进度 (LOAD)</button>
+                    <button class="sys-btn danger" onclick="saveSystem.clearData()">重置所有数据</button>
+                    <button class="sys-btn" onclick="ui.showScreen('menu')">返回主菜单</button>
+                </div>
+                <div id="save-status"></div>
+            </div>
+
+        </main>
+
+        <!-- 浮动提示容器 -->
+        <div id="toast-container"></div>
+    </div>
+
+    <script src="data/characters.js"></script>
+    <script src="data/common.js"></script>
+    <script src="data/jiang_feng.js"></script>
+    <script src="data/li_ze.js"></script>
+    <script src="data/wang_meng.js"></script>
+    <script src="data/chen_mo.js"></script>
+    <script src="engine.js"></script>
+</body>
+</html>
